@@ -1,6 +1,8 @@
+ALTER DATABASE "TrabalhoABDS5" SET datestyle TO 'ISO, DMY';
+
 CREATE TABLE Paciente (
 	id_paciente integer,
-	cod_paciente integer,
+	cod_paciente varchar(8),
 	nome varchar(50),
 	idade integer,
 	CONSTRAINT PK_id_paciente PRIMARY KEY (id_paciente)
@@ -8,28 +10,28 @@ CREATE TABLE Paciente (
 
 CREATE TABLE Cirurgia (
 	id_cirurgia integer,
-	cod_cirurgia integer,
-	data date,
-	desc varchar(200),
-	id_paciente,
+	cod_cirurgia varchar(8),
+	data_cirurgia date,
+	descricao varchar(100),
+	id_paciente integer,
 	CONSTRAINT PK_id_cirurgia PRIMARY KEY (id_cirurgia),
 	CONSTRAINT FK_id_paciente FOREIGN KEY (id_paciente)
-	REFERENCES Paciente (id_paciente),
+	REFERENCES Paciente (id_paciente)
 );
 
 CREATE TABLE Medico (
 	id_medico integer,
-	crm integer,
+	crm varchar(8),
 	nome varchar(50),
-	especialidade varchar(100),
+	especialidade varchar(50),
 	CONSTRAINT PK_id_medico PRIMARY KEY (id_medico)
 );
 
-CREATE Atende (
+CREATE TABLE Atende (
 	id_atende integer,
 	id_medico integer,
 	id_paciente integer,
-	data date,
+	data_atende date,
 	CONSTRAINT PK_id_atende PRIMARY KEY (id_atende),
 	CONSTRAINT FK_atende_medico FOREIGN KEY (id_medico)
 	REFERENCES Medico(id_medico),
@@ -41,3 +43,30 @@ CREATE SEQUENCE sid_paciente;
 CREATE SEQUENCE sid_medico;
 CREATE SEQUENCE sid_atende;
 CREATE SEQUENCE sid_cirurgia;
+
+INSERT INTO Paciente
+	values(nextval('sid_paciente'), 'p1', 'João', 12),
+	(nextval('sid_paciente'), 'p2', 'Maria', 38),
+	(nextval('sid_paciente'), 'p3', 'Pedro', 21),
+	(nextval('sid_paciente'), 'p4', 'Antônio', 29);
+	
+INSERT INTO Medico
+	values(nextval('sid_medico'), 'm1', 'Marcos', 'Oftalmogista'),
+	(nextval('sid_medico'), 'm2', 'Tereza', 'Clínico Geral'),
+	(nextval('sid_medico'), 'm3', 'Paulo', 'Pediatra'),
+	(nextval('sid_medico'), 'm4', 'João', 'Clínico Geral');
+	
+INSERT INTO Atende
+	values(nextval('sid_atende'), 1, 2, '09/02/2008'),
+	(nextval('sid_atende'), 2, 1, '26/03/2006'),
+	(nextval('sid_atende'), 3, 3, '11/09/2003'),
+	(nextval('sid_atende'), 1, 4, '13/10/2007'),
+	(nextval('sid_atende'), 2, 2, '08/05/2008');
+	
+INSERT INTO Cirurgia
+	values(nextval('sid_cirurgia'), 'c1',  '25/07/2008', 'Apendicite', 1),
+	(nextval('sid_cirurgia'), 'c2', '07/02/2001', 'Retirada de cálculo renal', 2),
+	(nextval('sid_cirurgia'), 'c3', '14/11/2007', 'Unha enchravada', 3),
+	(nextval('sid_cirurgia'), 'c4', '23/01/2008', 'Implante de silicone', 4);
+	
+
