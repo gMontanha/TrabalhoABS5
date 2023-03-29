@@ -62,14 +62,19 @@ INSERT INTO Medico
 	(nextval('sid_medico'), 'm4', 'João', 'Clínico Geral');
 	
 INSERT INTO Atende
-	values(nextval('sid_atende'), 1, 2, '09/02/2008'),
-	(nextval('sid_atende'), 2, 1, '26/03/2006'),
-	(nextval('sid_atende'), 3, 3, '11/09/2003'),
-	(nextval('sid_atende'), 1, 4, '13/10/2007'),
-	(nextval('sid_atende'), 2, 2, '08/05/2008');
+	values(nextval('sid_atende'), (SELECT id_paciente FROM seq_paciente WHERE nome = 'João'),
+	 (SELECT id_medico FROM seq_medico WHERE nome = 'Tereza'), '09/02/2008'),
+	(nextval('sid_atende'), (SELECT id_paciente FROM seq_paciente WHERE nome = 'Maria'), 
+	 (SELECT id_medico FROM seq_medico WHERE nome = 'Marcos'), '26/03/2006'),
+	(nextval('sid_atende'), (SELECT id_paciente FROM seq_paciente WHERE nome = 'Pedro'), 
+	 (SELECT id_medico FROM seq_medico WHERE nome = 'Paulo'), '11/09/2003'),
+	(nextval('sid_atende'), (SELECT id_paciente FROM seq_paciente WHERE nome = 'João'), 
+	 (SELECT id_medico FROM seq_medico WHERE nome = 'João'), '13/10/2007'),
+	(nextval('sid_atende'), (SELECT id_paciente FROM seq_paciente WHERE nome = 'Maria'), 
+	 (SELECT id_medico FROM seq_medico WHERE nome = 'Tereza'), '08/05/2008');
 	
 INSERT INTO Cirurgia
-	values(nextval('sid_cirurgia'), 'c1',  '25/07/2008', 'Apendicite', 1),
-	(nextval('sid_cirurgia'), 'c2', '07/02/2001', 'Retirada de cálculo renal', 2),
-	(nextval('sid_cirurgia'), 'c3', '14/11/2007', 'Unha enchravada', 3),
-	(nextval('sid_cirurgia'), 'c4', '23/01/2008', 'Implante de silicone', 2);
+	values(nextval('sid_cirurgia'), 'c1',  '25/07/2008', 'Apendicite', (SELECT id_paciente FROM seq_paciente WHERE nome = 'João')),
+	(nextval('sid_cirurgia'), 'c2', '07/02/2001', 'Retirada de cálculo renal', (SELECT id_paciente FROM seq_paciente WHERE nome = 'Maria')),
+	(nextval('sid_cirurgia'), 'c3', '14/11/2007', 'Unha enchravada', (SELECT id_paciente FROM seq_paciente WHERE nome = 'Pedro')),
+	(nextval('sid_cirurgia'), 'c4', '23/01/2008', 'Implante de silicone', (SELECT id_paciente FROM seq_paciente WHERE nome = 'Maria'));
