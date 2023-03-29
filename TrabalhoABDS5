@@ -1,5 +1,5 @@
 --Altera formato de data para Dia/Mês/Ano
-ALTER DATABASE "Trabalho ABDS5" SET datestyle TO 'ISO, DMY';
+ALTER DATABASE "TrabalhoABDS5" SET datestyle TO 'ISO, DMY';
 
 --Criação de Tabelas
 CREATE TABLE Paciente (
