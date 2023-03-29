@@ -73,5 +73,3 @@ INSERT INTO Cirurgia
 	(nextval('sid_cirurgia'), 'c2', '07/02/2001', 'Retirada de cálculo renal', 2),
 	(nextval('sid_cirurgia'), 'c3', '14/11/2007', 'Unha enchravada', 3),
 	(nextval('sid_cirurgia'), 'c4', '23/01/2008', 'Implante de silicone', 2);
-	
-SELECT * FROM Cirurgia;
