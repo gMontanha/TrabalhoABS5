@@ -1,5 +1,7 @@
-ALTER DATABASE "TrabalhoABDS5" SET datestyle TO 'ISO, DMY';
+--Altera formato de data para Dia/Mês/Ano
+ALTER DATABASE "Trabalho ABDS5" SET datestyle TO 'ISO, DMY';
 
+--Criação de Tabelas
 CREATE TABLE Paciente (
 	id_paciente integer,
 	cod_paciente varchar(8),
@@ -39,11 +41,14 @@ CREATE TABLE Atende (
 	REFERENCES Paciente (id_paciente)
 );
 
+--Criação de Sequências
 CREATE SEQUENCE sid_paciente;
 CREATE SEQUENCE sid_medico;
 CREATE SEQUENCE sid_atende;
 CREATE SEQUENCE sid_cirurgia;
 
+
+--Inserção de Dados
 INSERT INTO Paciente
 	values(nextval('sid_paciente'), 'p1', 'João', 12),
 	(nextval('sid_paciente'), 'p2', 'Maria', 38),
@@ -67,6 +72,6 @@ INSERT INTO Cirurgia
 	values(nextval('sid_cirurgia'), 'c1',  '25/07/2008', 'Apendicite', 1),
 	(nextval('sid_cirurgia'), 'c2', '07/02/2001', 'Retirada de cálculo renal', 2),
 	(nextval('sid_cirurgia'), 'c3', '14/11/2007', 'Unha enchravada', 3),
-	(nextval('sid_cirurgia'), 'c4', '23/01/2008', 'Implante de silicone', 4);
+	(nextval('sid_cirurgia'), 'c4', '23/01/2008', 'Implante de silicone', 2);
 	
-
+SELECT * FROM Cirurgia;
