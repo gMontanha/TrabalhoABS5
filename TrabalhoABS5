@@ -1,0 +1,43 @@
+CREATE TABLE Paciente (
+	id_paciente integer,
+	cod_paciente integer,
+	nome varchar(50),
+	idade integer,
+	CONSTRAINT PK_id_paciente PRIMARY KEY (id_paciente)
+);
+
+CREATE TABLE Cirurgia (
+	id_cirurgia integer,
+	cod_cirurgia integer,
+	data date,
+	desc varchar(200),
+	id_paciente,
+	CONSTRAINT PK_id_cirurgia PRIMARY KEY (id_cirurgia),
+	CONSTRAINT FK_id_paciente FOREIGN KEY (id_paciente)
+	REFERENCES Paciente (id_paciente),
+);
+
+CREATE TABLE Medico (
+	id_medico integer,
+	crm integer,
+	nome varchar(50),
+	especialidade varchar(100),
+	CONSTRAINT PK_id_medico PRIMARY KEY (id_medico)
+);
+
+CREATE Atende (
+	id_atende integer,
+	id_medico integer,
+	id_paciente integer,
+	data date,
+	CONSTRAINT PK_id_atende PRIMARY KEY (id_atende),
+	CONSTRAINT FK_atende_medico FOREIGN KEY (id_medico)
+	REFERENCES Medico(id_medico),
+	CONSTRAINT FK_atende_paciente FOREIGN KEY (id_paciente)
+	REFERENCES Paciente (id_paciente)
+);
+
+CREATE SEQUENCE sid_paciente;
+CREATE SEQUENCE sid_medico;
+CREATE SEQUENCE sid_atende;
+CREATE SEQUENCE sid_cirurgia;
