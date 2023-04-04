@@ -1,0 +1,23 @@
+CREATE OR REPLACE FUNCTION f_novaCirurgia(
+    p_cod_cirurgia varchar,
+    p_cod_paciente varchar,
+    p_data_cirurgia date,
+    p_descricao varchar
+)
+RETURNS void
+AS $$
+BEGIN
+    -- Verificar se o paciente existe
+    IF NOT EXISTS (SELECT 1 FROM Paciente WHERE cod_paciente = p_cod_paciente) THEN
+        RAISE EXCEPTION 'Paciente não encontrado';
+    END IF;
+    
+    -- Inserir nova cirurgia
+    INSERT INTO Cirurgia (id_cirurgia, cod_cirurgia, data_cirurgia, descricao, id_paciente)
+    VALUES (nextval('sid_cirurgia'), p_cod_cirurgia, p_data_cirurgia, p_descricao, (SELECT id_paciente FROM Paciente WHERE cod_paciente = p_cod_paciente));
+    
+END;
+$$ LANGUAGE plpgsql;
+
+
+SELECT f_novaCirurgia(nextval('sid_cirurgia'), 'c7', '13/04/2002', 'Cirurgia de prostatectomia');
