@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION nova_data_cirg() RETURNS TRIGGER 
+AS $$
+BEGIN
+    IF NEW.data_cirurgia > current_date THEN
+       RAISE 'A data da cirurgia deve ser igual ou antes da data corrente!' USING ERRCODE = 'ERR01';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_nova_data_cirg BEFORE INSERT ON Cirurgia
+FOR EACH ROW EXECUTE FUNCTION nova_data_cirg();
+
+SELECT f_novaCirurgia('c7', 'p3', '13/04/2023', 'Cirurgia de prostatectomia');
+SELECT f_novaCirurgia('c9', 'p2', '03/07/2010', 'Cirurgia de Tireoide');
+SELECT * FROM Cirurgia;
