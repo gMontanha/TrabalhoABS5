@@ -1,3 +1,10 @@
+--Criar a banco de dados
+CREATE DATABASE trabalhoabds5
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
+
 --Altera formato de data para Dia/Mês/Ano
 ALTER DATABASE "TrabalhoABDS5" SET datestyle TO 'ISO, DMY';
 
